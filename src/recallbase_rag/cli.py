@@ -4,11 +4,9 @@ from pathlib import Path
 
 from recallbase_rag.bootstrap import get_service
 from recallbase_rag.errors import RecallbaseError
+from recallbase_rag.evaluation import evaluate, format_report, load_questions
+from recallbase_rag.retriever import Retriever
 
-
-def main(argv: list[str] | None = None) -> int:
-    sys.stdout.reconfigure(errors="replace")
-    parser = build_parser()
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
@@ -43,6 +41,23 @@ def build_parser() -> argparse.ArgumentParser:
         type=int,
         default=None,
         help="How many chunks to show (default: from settings)",
+    )
+
+    eval_parser = subparsers.add_parser(
+        "eval",
+        help="Measure how often the right page is retrieved (no OpenAI call)",
+    )
+    eval_parser.add_argument(
+        "--questions",
+        type=Path,
+        default=Path("eval/questions.json"),
+        help="Path to the questions file (default: eval/questions.json)",
+    )
+    eval_parser.add_argument(
+        "--top-k",
+        type=int,
+        default=8,
+        help="How many chunks to retrieve per question (default: 8)",
     )
 
     return parser
@@ -92,7 +107,17 @@ def run_search(question: str, top_k: int | None) -> None:
         print(chunk.text)
 
 
+def run_eval(questions_path: Path, top_k: int) -> None:
+    questions = load_questions(questions_path)
+    service = get_service()
+    retriever = Retriever(service.embedder, service.store, top_k)
+    report = evaluate(questions, retriever)
+    print()
+    print(format_report(report))
+
+
 def main(argv: list[str] | None = None) -> int:
+    sys.stdout.reconfigure(errors="replace")
     parser = build_parser()
     args = parser.parse_args(argv)
 
@@ -103,6 +128,8 @@ def main(argv: list[str] | None = None) -> int:
             run_ask(args.question)
         elif args.command == "search":
             run_search(args.question, args.top_k)
+        elif args.command == "eval":
+            run_eval(args.questions, args.top_k)
     except (RecallbaseError, ValueError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1

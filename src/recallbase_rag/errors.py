@@ -16,3 +16,6 @@ class VectorStoreError(RecallbaseError):
 
 class LLMError(RecallbaseError):
     """The language model call failed."""
+
+class EvaluationError(RecallbaseError):
+    """The evaluation questions or settings are invalid."""

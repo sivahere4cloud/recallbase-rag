@@ -1,0 +1,20 @@
+[
+  {"question": "What are the three service models of cloud computing and who handles security in each?", "pages": [14]},
+  {"question": "How does a public cloud differ from a private cloud?", "pages": [13]},
+  {"question": "What are the three classes of public cloud services?", "pages": [16]},
+  {"question": "What is the difference between non-negotiable and negotiated service agreements?", "pages": [18]},
+  {"question": "Which kinds of organizations benefit most from the security upside of public cloud?", "pages": [18]},
+  {"question": "Why can staff specialization at a cloud provider improve security?", "pages": [19]},
+  {"question": "How can a cloud application limit data exposure if a mobile device is compromised?", "pages": [20]},
+  {"question": "Why does system complexity in a public cloud increase security risk?", "pages": [21]},
+  {"question": "Why is the multi-tenant environment a security concern for cloud consumers?", "pages": [21]},
+  {"question": "What does loss of control mean when moving to a public cloud?", "pages": [22]},
+  {"question": "How can cloud services help improve the security of data centers, for example against spam and phishing?", "pages": [23]},
+  {"question": "What governance problem arises when parts of an organization adopt cloud services without approval?", "pages": [25]},
+  {"question": "What should the service contract say about who owns the data?", "pages": [29]},
+  {"question": "Why is visibility into the provider's security measures limited for cloud consumers?", "pages": [30]},
+  {"question": "How does SAML support authentication in public clouds?", "pages": [36]},
+  {"question": "What is the difference between a multi-instance and a multi-tenant database model?", "pages": [40]},
+  {"question": "Who should control the cryptographic keys used for cloud-based applications?", "pages": [41]},
+  {"question": "Can an organization hand off accountability for security and privacy to the cloud provider?", "pages": [62]}
+]
