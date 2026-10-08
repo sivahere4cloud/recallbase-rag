@@ -1,4 +1,5 @@
 from functools import lru_cache
+import atexit
 
 from recallbase_rag.config import Settings, get_settings
 from recallbase_rag.embedder import SentenceTransformerEmbedder
@@ -13,9 +14,11 @@ def build_service(settings: Settings) -> RagService:
     embedder = SentenceTransformerEmbedder(
         model_name=settings.embedding_model_name,
         dimension=settings.embedding_dimension,
+        
     )
 
     client = create_qdrant_client(settings.qdrant_url, settings.qdrant_path)
+    atexit.register(client.close)
     store = QdrantVectorStore(
         client=client,
         collection_name=settings.qdrant_collection,
