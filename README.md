@@ -6,6 +6,7 @@ Upload documents, ask a question, get an answer with the pages it came from.
 Every step is written by hand: loader, cleaner, chunker, embedder, vector store wrapper,
 retriever, prompt builder and LLM call. A second repo will build the same app with LangChain
 so the two can be compared on the same documents and questions.
+<img width="959" height="945" alt="image" src="https://github.com/user-attachments/assets/c81ccb7a-cb58-4894-9e2d-458f644b279a" />
 
 > **Status:** working locally. Docker, CI and a deployment are not done yet,
 > so this is **not** called production-grade. See the roadmap.
