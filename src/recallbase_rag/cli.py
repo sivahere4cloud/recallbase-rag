@@ -6,6 +6,10 @@ from recallbase_rag.bootstrap import get_service
 from recallbase_rag.errors import RecallbaseError
 
 
+def main(argv: list[str] | None = None) -> int:
+    sys.stdout.reconfigure(errors="replace")
+    parser = build_parser()
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
         prog="recallbase-rag",

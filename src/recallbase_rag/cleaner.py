@@ -8,6 +8,7 @@ SPACES_AND_TABS = re.compile(r"[ \t]+")
 SPACES_AROUND_NEWLINE = re.compile(r" *\n *")
 HYPHEN_LINE_BREAK = re.compile(r"([a-z])-\n([a-z])")
 MANY_NEWLINES = re.compile(r"\n{3,}")
+PRIVATE_USE_CHARS = re.compile(r"[\ue000-\uf8ff]")
 
 
 def clean_text(text: str) -> str:
@@ -16,6 +17,7 @@ def clean_text(text: str) -> str:
     text = text.replace("\r", "\n")
     text = text.replace("\u00ad", "")
     text = CONTROL_CHARS.sub("", text)
+    text = PRIVATE_USE_CHARS.sub(" ", text)
     text = SPACES_AND_TABS.sub(" ", text)
     text = SPACES_AROUND_NEWLINE.sub("\n", text)
     text = HYPHEN_LINE_BREAK.sub(r"\1\2", text)
