@@ -186,6 +186,3 @@ works on every document.
 - Tuning chunk size, top-k and the query prefix, measured with the evaluation
 - A second repo: the same app with LangChain, compared on code size and what the framework hides
 
-## Credits
-
-Built while following Ed Donner's AI Engineer Core Track.
