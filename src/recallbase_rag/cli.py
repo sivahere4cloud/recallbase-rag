@@ -29,6 +29,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     ask_parser.add_argument("question", help="Your question, in quotes")
 
+    search_parser = subparsers.add_parser(
+        "search",
+        help="Show the retrieved chunks for a question (no OpenAI call)",
+    )
+    search_parser.add_argument("question", help="Your question, in quotes")
+    search_parser.add_argument(
+        "--top-k",
+        type=int,
+        default=None,
+        help="How many chunks to show (default: from settings)",
+    )
+
     return parser
 
 
@@ -56,6 +68,26 @@ def run_ask(question: str) -> None:
             )
 
 
+def run_search(question: str, top_k: int | None) -> None:
+    service = get_service()
+    if top_k is not None:
+        service.retriever.top_k = top_k
+
+    hits = service.retriever.retrieve(question)
+    if not hits:
+        print("No chunks found. Did you run ingest?")
+        return
+
+    for number, hit in enumerate(hits, start=1):
+        chunk = hit.chunk
+        print()
+        print(
+            f"[{number}] score {hit.score:.3f} | {chunk.file_name} | "
+            f"page {chunk.page_number} | chunk {chunk.chunk_index}"
+        )
+        print(chunk.text)
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
@@ -65,6 +97,8 @@ def main(argv: list[str] | None = None) -> int:
             run_ingest(args.path)
         elif args.command == "ask":
             run_ask(args.question)
+        elif args.command == "search":
+            run_search(args.question, args.top_k)
     except (RecallbaseError, ValueError) as error:
         print(f"Error: {error}", file=sys.stderr)
         return 1
