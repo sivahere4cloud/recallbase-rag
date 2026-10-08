@@ -28,6 +28,7 @@ class Settings(BaseSettings):
     chunk_size: int = Field(default=800, gt=0)
     chunk_overlap: int = Field(default=100, ge=0)
     top_k: int = Field(default=4, gt=0)
+    openai_model: str = "gpt-6-luna"
 
     openai_api_key: SecretStr | None = Field(
         default=None,
