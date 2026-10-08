@@ -7,7 +7,16 @@ authors = [
     { name = "sivahere4cloud", email = "sivaganeshcloud@gmail.com" }
 ]
 requires-python = ">=3.12"
-dependencies = []
+dependencies = [
+    "fastapi>=0.142.4",
+    "gradio>=6.29.1",
+    "openai>=3.26.1",
+    "pydantic-settings>=2.15.0",
+    "pypdf>=6.19.0",
+    "qdrant-client>=1.19.1",
+    "sentence-transformers>=6.1.0",
+    "uvicorn>=0.54.0",
+]
 
 [project.scripts]
 recallbase-rag = "recallbase_rag:main"
@@ -15,3 +24,10 @@ recallbase-rag = "recallbase_rag:main"
 [build-system]
 requires = ["uv_build>=0.12.13,<0.13.0"]
 build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "httpx>=0.28.1",
+    "pytest>=9.1.1",
+    "ruff>=0.16.10",
+]
