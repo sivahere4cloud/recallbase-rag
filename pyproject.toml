@@ -1,0 +1,17 @@
+[project]
+name = "recallbase-rag"
+version = "0.1.0"
+description = "RAG knowledge assistant built from scratch, no LangChain"
+readme = "README.md"
+authors = [
+    { name = "sivahere4cloud", email = "sivaganeshcloud@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = []
+
+[project.scripts]
+recallbase-rag = "recallbase_rag:main"
+
+[build-system]
+requires = ["uv_build>=0.12.13,<0.13.0"]
+build-backend = "uv_build"
